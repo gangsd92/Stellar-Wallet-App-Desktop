@@ -3,7 +3,7 @@ from stellar_base.keypair import Keypair
 import requests
 
 
-class CreateWallet:
+class Create:
     def __init__(self, name, amount):
         self.name = name
         self.keyPair = Keypair.random()

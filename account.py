@@ -1,7 +1,7 @@
 from stellar_base.address import Address
 
 
-class AccountDetails:
+class Details:
     def __init__(self, address):
         self.address = address
         account = Address(address=self.address)
