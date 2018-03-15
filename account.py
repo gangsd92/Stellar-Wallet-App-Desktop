@@ -10,15 +10,15 @@ class Details:
             self.account.get()
         except AccountNotExistError:
             self.account = None
-            print('Account does not exist')
 
+    @property
+    def check(self):
+        return True if self.account else False
+    
     @property
     def get(self):
         if self.account:
-            print('Account ID:{}'.format(self.address))
-            print('Balance:{}'.format(self.balance))
-            print('Asset:{}'.format(self.asset))
-            return self.address, self.balance, self.asset
+            return self.account, self.address, self.balance, self.asset
         else:
             return None
 

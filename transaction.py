@@ -1,18 +1,28 @@
 from stellar_base.builder import Builder
+from account import Details
 
 
 class Build:
+    """Creates a transaction between the sender and receiver.
 
-    def __init__(self, sender, receiver, amount=0, text_memo=None):
-        self.text_memo = text_memo
-        self.sender = sender
-        self.receiver = receiver
-        self.amount = amount
+    :param: sender: Account that sends the money (seed).
+    :param: receiver: Account that receives the money (Account ID).
+    :param: amount: Amount that needs to be sent.
+    """
+    def __init__(self, sender, receiver, amount=0):
+        self.sender, self.receiver, self.amount = sender, receiver, amount
         self.builder = None
 
     def send(self):
-        self.builder = Builder(secret=self.sender, horizon='https://horizon-testnet.stellar.org')
-        self.builder.append_payment_op(self.receiver, self.amount)
-        self.builder.add_text_memo('Hello world!')
-        self.builder.sign()
-        self.builder.submit()
+        """Text Memo needs to be added."""
+        if self.check_account_validity:
+            self.builder = Builder(secret=self.sender, horizon='https://horizon-testnet.stellar.org')
+            self.builder.append_payment_op(self.receiver, self.amount)
+            self.builder.sign()
+            self.builder.submit()
+            return True
+        return False
+
+    @property
+    def check_account_validity(self):
+        return Details(self.receiver).check

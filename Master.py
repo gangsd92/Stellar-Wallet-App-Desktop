@@ -1,5 +1,20 @@
-import account
+from transaction import Build
+from account import Details
+
+ALICE = 'GBCKQLHFUZF36FIJUKUW37YFQG5O5MXT3YB2M7ZGVBORLUZMPIITWHZI'
+ALICE_SEED = 'SAKM5BVR5OK75VAC4YCUXD4YLPIJEV7WIUY6WJUXNZF6LCJ3CGYD6WU2'
+BOB = 'GAATZTOYFZSLGKM6BUTXNWMIWUETMEK74VBJNEPRGB5WW3ELVTKBWNGN'
+
 
 if __name__ == '__main__':
-    Address1 = 'GBCKQLHFUZF36FIJUKUW37YFQG5O5MXT3YB2M7ZGVBORLUZMPIITWHZI'
-    account.Details(Address1).get()
+    if Details(ALICE).check and Details(BOB).check:
+        transaction = Build(sender=ALICE_SEED, receiver=BOB, amount=20)
+        transaction.send()
+        [account, address, balance, asset] = Details(ALICE).get
+        print('Balance:{}'.format(balance))
+        print('Address:{}'.format(address))
+        print('---------------------------')
+        [account, address, balance, asset] = Details(BOB).get
+        print('Balance:{}'.format(balance))
+        print('Address:{}'.format(address))
+        print('---------------------------')

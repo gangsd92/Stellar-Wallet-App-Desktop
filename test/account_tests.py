@@ -2,7 +2,7 @@ import unittest
 from account import Details
 
 
-class TestStringMethods(unittest.TestCase):
+class TestDetailClass(unittest.TestCase):
     def test_accountDetailsExist(self):
         account_id = 'GBCKQLHFUZF36FIJUKUW37YFQG5O5MXT3YB2M7ZGVBORLUZMPIITWHZI'
         self.assertTrue(Details(account_id).get, msg='Test exist failed case failed')
