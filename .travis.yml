@@ -4,5 +4,4 @@ python:
 install:
  - pip install -r requirements.txt
 script:
-  - python test/account_tests.py
-  - python test/transaction_tests.py
+  - python -m unittest test/*.py
