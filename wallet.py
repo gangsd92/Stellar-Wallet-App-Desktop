@@ -2,6 +2,7 @@ from stellar_base.builder import Builder
 from stellar_base.keypair import Keypair
 import requests
 """Class does not work correctly. Needs to be debugged."""
+import urllib3
 
 
 class Create:
@@ -15,17 +16,15 @@ class Create:
         self.amount = amount
         self.keyPair = Keypair.random()
         self.publicKey = self.keyPair.address().decode()
-        print(type(self.publicKey))
+        print(self.publicKey)
         self.secret = self.keyPair.seed().decode()
         self.builder = None
-        self.url = 'https://horizon-testnet.stellar.org/'
-        requests.get(self.url, params={'addr':self.publicKey})
+        self.url = 'https://friendbot.stellar.org'
+        self.http = urllib3.PoolManager()
 
     def create(self):
-        self.builder = Builder(secret=self.secret, horizon='https://horizon-testnet.stellar.org')
-        self.builder.append_create_account_op(destination=self.publicKey, starting_balance=20)
-        """Error while signing the document."""
-        self.builder.sign()
-        self.builder.submit()
-
-
+                request = self.http.request('GET', '{}?addr={}'.format(self.url, self.publicKey))
+                if request.status == 200:
+                    return self.publicKey
+                else:
+                    return False

@@ -7,4 +7,7 @@ script:
   - python -m unittest test/*.py
 notification:
     slack: coins-app:kBRlqkQGLMFLUM4dLseYVqI3
-    email: none
+    email: false
+branches:
+  only:
+    - master
