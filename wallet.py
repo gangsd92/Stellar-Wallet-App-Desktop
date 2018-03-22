@@ -1,7 +1,4 @@
-from stellar_base.builder import Builder
 from stellar_base.keypair import Keypair
-import requests
-"""Class does not work correctly. Needs to be debugged."""
 import urllib3
 
 
